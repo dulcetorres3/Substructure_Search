@@ -7,16 +7,16 @@ The screening of chemical substructures has become the foundation of increasingl
 <details>
 <summary>Instructions</summary>
 In order to run the script, the sutructure and substrucure .sdf files must be within the test_compounds directory. 
-<br>
+
 - Build environment
     - ./build_image.sh
-<br>
+
 - Set up environment
     - ./interactive.sh
-<br>
+
 - Change to subdirectory
     - cd src
-<br>
+
 - Run executable
     - python molecule.py -sdf_file {structure_sdf_file} {substructure_sdf_file}
 </details>
@@ -24,11 +24,10 @@ In order to run the script, the sutructure and substrucure .sdf files must be wi
 <details>
 <summary>Repository contents</summary>
 - src
-<br>
     - molecule.py: source code for the substructure screen
-<br>
+
     - example.ipynb: jupyter notebook demonstrating examples of the substructure screen and visulations
-<br>
+
     - provided.py: source code for sdf processing 
 </details>
 
