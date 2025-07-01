@@ -24,6 +24,7 @@ In order to run the script, the sutructure and substrucure .sdf files must be wi
 <details>
 <summary>Repository contents</summary>
 - src
+
     - molecule.py: source code for the substructure screen
 
     - example.ipynb: jupyter notebook demonstrating examples of the substructure screen and visulations
