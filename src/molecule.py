@@ -49,6 +49,7 @@ class MoleculeGraph:
         visual = nx.draw(self.graph, with_labels=True, node_color=colors)
 
         display(visual)
+        return
 
     
 
