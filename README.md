@@ -2,9 +2,7 @@
 
 The screening of chemical substructures has become the foundation of increasingly popular in silico techniques for augmenting the selection of drug-like compounds for preclinical and clinical development. This Python module focuses on implementing a substructure search that relies on a fingerprint-based agorithm. Additional aspects of the module consist of .sdf processing and graph visualizations. 
 
-![alt text](image.png)
-
-
+![image](images/image.png)
 
 <details>
 <summary>Instructions</summary>
