@@ -1,6 +1,6 @@
 FROM python:3
                        
-RUN pip install networkx matplotlib numpy IPython
+RUN pip install networkx matplotlib numpy IPython pytest
 
                     
 # Copy the entrypoint file into the Docker image
