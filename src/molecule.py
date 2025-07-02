@@ -18,6 +18,7 @@ class MoleculeGraph:
         'O' : 'red',
         'S' : 'yellow'
     }
+
     def __init__(self, nodes, bonds, included_hydrogen: Optional[bool] = False):
         if not isinstance(nodes, list):
             raise TypeError("nodes must be in a list")
@@ -67,8 +68,18 @@ class MoleculeGraph:
 
 class MoleculeScreen(MoleculeGraph):
 
-    
+    @property
     def fingerprint(self):
+        """
+        Determines 1000 bit fingerprint for the compound.
+
+        Parameters:
+        ----------
+
+        Returns:
+        --------
+        fingerprint (vector)
+        """
 
         size = 1000
         cutoff = 6 
@@ -97,6 +108,17 @@ class MoleculeScreen(MoleculeGraph):
 
 
     def sp2_hybridized(self, node:str):
+        """
+        Determines if a carbon node is sp2 hybridized.
+
+        Parameters:
+        ----------
+        node (str): label correosponding to a carbon atom. 
+
+        Returns:
+        --------
+        bool 
+        """
         
         outgoing_edges = self.graph.edges(node, data=True)
         double_bond = False
@@ -111,6 +133,17 @@ class MoleculeScreen(MoleculeGraph):
         return double_bond
     
     def hetero_sp2_hybridized(self, node:str):
+        """
+        Determines if a hetero node is sp2 hybridized. 
+
+        Parameters:
+        ----------
+        node (str): label of a given node corresponding to a hetero atom
+
+        Returns:
+        --------
+        bool 
+        """
 
         # check outgoing edge weights
         outgoing_edges = self.graph.edges(node, data=True)
@@ -133,7 +166,17 @@ class MoleculeScreen(MoleculeGraph):
 
 
     def huckel_electrons(self, electrons):
-        print(f'electrons: {electrons}')
+        """
+        Determines if the number of electrons is a huckel value. 
+
+        Parameters:
+        ----------
+        electrons (int): a molecule instance
+
+        Returns:
+        --------
+        bool 
+        """
         test = (electrons - 2) % 4
     
         if test == 0:
@@ -143,6 +186,16 @@ class MoleculeScreen(MoleculeGraph):
         
     
     def aromatic_ring_detection(self):
+        """
+        Determines if all of the cyclic components of the compound are aromatic.
+
+        Parameters:
+        ----------
+
+        Returns:
+        --------
+        bool 
+        """
         
         aromatic_rings = 0
         rings = nx.cycle_basis(self.graph)
@@ -166,13 +219,43 @@ class MoleculeScreen(MoleculeGraph):
             return False
     
     def screen(self, substructure):
+        """
+        Determines if a substructure is present within the compound. 
 
-        substructure_fingerprint = np.array(substructure.fingerprint())
-        compound_fingerprint = np.array(self.fingerprint())
+        Parameters:
+        ----------
+        substructure (MoleculeScreen): a molecule instance
+
+        Returns:
+        --------
+        bool 
+        """
+
+        substructure_fingerprint = np.array(substructure.fingerprint)
+        compound_fingerprint = np.array(self.fingerprint)
         
         screen_test = compound_fingerprint - substructure_fingerprint
         
         return np.all(screen_test >= 0)
+    
+    def __eq__(self, compound):
+        """
+        Determines if two compounds are the same on the basis of fingerprint comparison. 
+
+        Parameters:
+        ----------
+        compound (MoleculeScreen): a molecule instance
+
+        Returns:
+        --------
+        bool 
+        """
+
+        if(self.fingerprint ==  compound.fingerprint):
+            return True
+        else:
+            return False
+
     
   
         
@@ -193,7 +276,7 @@ if __name__ == "__main__":
             compound = MoleculeScreen.from_sdf(compound_sdf, True)
             substructure = MoleculeScreen.from_sdf(substructure_sdf, True)
         else:
-            compound = MoleculeScreen.from_sdf(compound_sdf, True)
+            compound = MoleculeScreen.from_sdf(compound_sdf)
             substructure = MoleculeScreen.from_sdf(substructure_sdf)
 
     elif args.nodes_and_bonds:
