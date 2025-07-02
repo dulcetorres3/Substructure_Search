@@ -171,7 +171,7 @@ class MoleculeScreen(MoleculeGraph):
 
         Parameters:
         ----------
-        electrons (int): a molecule instance
+        electrons (int): number of electrons 
 
         Returns:
         --------
@@ -266,7 +266,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description= "This script can be used to perform a substructure screen for compounds in the test_compounds subdirectory.")
     parser.add_argument("-sdf_file", help="The name of the file correspnidng to a compound and a substructure in the test_compounds sub directory", type=str, nargs=2)
     parser.add_argument("-nodes_and_bonds", help="A list corresponding to the nodes and bonds of a compound and substructure. Put the list within quotations to avoid error from the commnad line", nargs=4, type=list)
-    parser.add_argument("--hydrogens", help="A boolean specifying whether or not hydrigens are included in the compound and substructure", default=False, type=bool)
+    parser.add_argument("--hydrogens", help="A boolean specifying whether or not hydrogens are included in the compound and substructure", default=False, type=bool)
 
     args = parser.parse_args()
     if args.sdf_file:
