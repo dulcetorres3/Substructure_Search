@@ -4,6 +4,7 @@ Provided functions.
 
 from typing import Optional
 
+
 def generate_names(elements: list[str]) -> list[str]:
     """
     Generate a list of atom names from a list of elements.
@@ -12,10 +13,10 @@ def generate_names(elements: list[str]) -> list[str]:
     ----------
     elements
         An unnumbered list of elements.
-    
+
     Returns
     -------
-    names 
+    names
         A list of atom names with the format "element + number".
     """
 
@@ -28,6 +29,7 @@ def generate_names(elements: list[str]) -> list[str]:
 
     return names
 
+
 def parse_sdf(
     filename: str, include_hydrogen: Optional[bool] = False
 ) -> tuple[dict, list]:
@@ -36,7 +38,7 @@ def parse_sdf(
 
     Parameters
     ----------
-    filename 
+    filename
         The name of the file to analyze
     include_hydrogen
         Controls whether information about hydrogens is returned.
@@ -87,7 +89,7 @@ def parse_sdf(
     # generate unique name for the atoms
     names = generate_names(elements)
 
-    # create a dictionary of atom names and elements  
+    # create a dictionary of atom names and elements
     names_and_elements = {k: v for k, v in zip(names, elements)}
 
     # Get list of bonds - format [ (atom1, atom2, bond_order) ...]
@@ -100,7 +102,7 @@ def parse_sdf(
     if not include_hydrogen:
         # remove bonds between hydrogen atoms and other elements
         # since we are using atom names instead of indices, this is
-        # a lot cleaner. 
+        # a lot cleaner.
         bond_names = [
             x
             for x in bond_names
