@@ -30,6 +30,8 @@ In order to run the script, the sutructure and substrucure .sdf files must be wi
     - example.ipynb: jupyter notebook demonstrating examples of the substructure screen and visulations
 
     - provided.py: source code for sdf processing 
+
+    - test.py: pytests for molecule.py
 </details>
 
 

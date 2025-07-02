@@ -11,13 +11,6 @@ from IPython.display import display
 
 class MoleculeGraph:
 
-    color_dict = {
-        'C' : 'black',
-        'H' : 'white',
-        'N' : 'blue',
-        'O' : 'red',
-        'S' : 'yellow'
-    }
 
     def __init__(self, nodes, bonds, included_hydrogen: Optional[bool] = False):
         if not isinstance(nodes, list):
@@ -33,6 +26,13 @@ class MoleculeGraph:
         self.graph.add_nodes_from(self.nodes)
         self.graph.add_weighted_edges_from(self.bonds)
         self.hetero_atoms = ['S', 'N', 'O']
+        self.color_dict = {
+        'C' : 'black',
+        'H' : 'white',
+        'N' : 'blue',
+        'O' : 'red',
+        'S' : 'yellow'
+    }
 
     @property
     def visualization(self):
@@ -59,12 +59,12 @@ class MoleculeGraph:
 
         full_path = os.path.join('../test_compounds', filename)
         try:
-            open(os.path.join('../test_compounds', filename))
+            open(full_path)
             nodes, bonds = parse_sdf(full_path, include_hydrogen=include_hydrogen)
             nodes = list(nodes.keys())
             return cls(nodes, bonds, included_hydrogen=include_hydrogen)
         except FileNotFoundError:
-            print("File is not in the test_compounds sub directory.")
+            raise FileNotFoundError(f"SDF file not found: {full_path}")
 
 class MoleculeScreen(MoleculeGraph):
 
@@ -160,12 +160,12 @@ class MoleculeScreen(MoleculeGraph):
         # check potential delocalization
         if double_bond == False:
             for node in neighboring_nodes:
-                double_bond = self.sp2_hybridized()
+                double_bond = self.sp2_hybridized(node)
         
         return double_bond
 
 
-    def huckel_electrons(self, electrons):
+    def huckel_electrons(self, electrons:int):
         """
         Determines if the number of electrons is a huckel value. 
 
